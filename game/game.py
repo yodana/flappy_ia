@@ -18,7 +18,7 @@ class Game:
         self.size = 0
         self.state = 1
         self.anim = 0
-        pygame.time.set_timer(pygame.USEREVENT, 2200)
+        pygame.time.set_timer(pygame.USEREVENT, 2000)
         pygame.time.set_timer(pygame.USEREVENT + 1, 500)
 
     def event_handler(self):
@@ -104,8 +104,6 @@ class Game:
                 if count == len(self.player):
                     self.running = 0
                 if p.alive == 1:
-                    p.score = p.score + 1
-                    
                     output = p.net.activate((p.rect.y, abs(p.rect.y - top), abs(p.rect.y - buttom), abs(p.rect.x - x_wall), position_y))
                     if output[0] > 0.5:
                         p.jump()
@@ -136,4 +134,6 @@ if __name__ == "__main__":
     p.add_reporter(neat.Checkpointer(generation_interval=50, filename_prefix='neat-checkpoint-'))
     pygame.init()
     game = Game()
+    #checkpoint_file = "neat-checkpoint-149"  # remplace par ton nom de fichier
+    #p = neat.Checkpointer.restore_checkpoint(checkpoint_file)
     winner = p.run(eval_genomes, 1000)
